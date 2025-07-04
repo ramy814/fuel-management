@@ -234,4 +234,15 @@ class VehGasBillController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Generate financial reports
+     */
+    public function report(Request $request): JsonResponse
+    {
+        return response()->json([
+            'success' => false,
+            'message' => 'Financial reporting functionality not implemented yet'
+        ], 501);
+    }
 }

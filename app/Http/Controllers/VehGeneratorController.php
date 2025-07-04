@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\VehGenerator;
+use App\Models\VehicleFuelLog;
 use App\Models\Vehicle;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Exception;
-use Inertia\Inertia;
 
 class VehGeneratorController extends Controller
 {
@@ -255,35 +255,44 @@ class VehGeneratorController extends Controller
         }
     }
 
+
     /**
-     * Display the web interface for generators.
+     * Get fuel logs for a specific generator
      */
-    public function webIndex(Request $request)
+    public function fuelLogs(string $id): JsonResponse
     {
-        return Inertia::render('Generators/Index');
+        try {
+            $generator = VehGenerator::findOrFail($id);
+            
+            $fuelLogs = VehicleFuelLog::where('GENERATOR_OID', $id)
+                ->orderBy('FILL_UP_DATE', 'desc')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'generator' => $generator,
+                    'fuel_logs' => $fuelLogs
+                ],
+                'message' => 'Generator fuel logs retrieved successfully'
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error retrieving fuel logs: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
-     * Display the create generator form.
+     * Generate generator reports
      */
-    public function create()
+    public function report(Request $request): JsonResponse
     {
-        return Inertia::render('Generators/Create');
-    }
-
-    /**
-     * Display the edit generator form.
-     */
-    public function edit(string $id)
-    {
-        return Inertia::render('Generators/Edit', ['id' => $id]);
-    }
-
-    /**
-     * Display the generator details.
-     */
-    public function webShow(string $id)
-    {
-        return Inertia::render('Generators/Show', ['id' => $id]);
+        return response()->json([
+            'success' => false,
+            'message' => 'Generator reporting functionality not implemented yet'
+        ], 501);
     }
 }

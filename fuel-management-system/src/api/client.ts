@@ -60,7 +60,7 @@ class ApiClient {
           }));
         }
 
-        if (error.response?.status >= 500) {
+        if (error.response && error.response.status >= 500) {
           store.dispatch(showSnackbar({
             message: 'حدث خطأ في الخادم. يرجى المحاولة مرة أخرى',
             severity: 'error'

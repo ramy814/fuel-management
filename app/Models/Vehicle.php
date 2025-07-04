@@ -113,10 +113,14 @@ class Vehicle extends Model
 
     /**
      * Get the gas bills for this vehicle.
+     * Note: VEH_GAS_BILL table doesn't have direct vehicle reference
+     * This relationship might need to be implemented differently
      */
     public function gasBills()
     {
-        return $this->hasMany(VehGasBill::class, 'vehicle_id');
+        // Since VEH_GAS_BILL doesn't have vehicle reference,
+        // this might need to be a custom query or many-to-many relationship
+        return $this->hasMany(VehGasBill::class, 'VEHICLE_OID');
     }
 
     /**

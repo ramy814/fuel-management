@@ -25,7 +25,7 @@ class User extends Authenticatable
     /**
      * The primary key associated with the table.
      */
-    protected $primaryKey = 'oid';
+    protected $primaryKey = 'OID';
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -63,7 +63,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'remember_token',
+        'REMEMBER_TOKEN',
     ];
 
     /**
@@ -85,7 +85,7 @@ class User extends Authenticatable
      */
     public function getAuthIdentifierName()
     {
-        return 'user_name_new';
+        return 'USER_NAME_NEW';
     }
 
     /**
@@ -95,7 +95,7 @@ class User extends Authenticatable
      */
     public function getAuthPassword()
     {
-        return $this->user_password;
+        return $this->USER_PASSWORD;
     }
 
     /**

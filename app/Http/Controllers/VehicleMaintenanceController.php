@@ -7,7 +7,6 @@ use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Exception;
-use Inertia\Inertia;
 
 class VehicleMaintenanceController extends Controller
 {
@@ -182,35 +181,4 @@ class VehicleMaintenanceController extends Controller
         }
     }
 
-    /**
-     * Display the web interface for maintenance.
-     */
-    public function webIndex(Request $request)
-    {
-        return Inertia::render('Maintenance/Index');
-    }
-
-    /**
-     * Display the create maintenance form.
-     */
-    public function create()
-    {
-        return Inertia::render('Maintenance/Create');
-    }
-
-    /**
-     * Display the edit maintenance form.
-     */
-    public function edit(string $id)
-    {
-        return Inertia::render('Maintenance/Edit', ['id' => $id]);
-    }
-
-    /**
-     * Display the maintenance details.
-     */
-    public function webShow(string $id)
-    {
-        return Inertia::render('Maintenance/Show', ['id' => $id]);
-    }
 }

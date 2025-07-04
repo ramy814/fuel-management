@@ -1,9 +1,17 @@
 import { apiClient } from '../client';
 import { Generator, CreateGeneratorDTO, UpdateGeneratorDTO, FuelLog } from '../../types';
+import { MockApiService } from '../../utils/mockApi';
+
+const useMockApi = import.meta.env.VITE_MOCK_API === 'true' || import.meta.env.DEV;
 
 export const generatorsAPI = {
-  getAll: (): Promise<Generator[]> => 
-    apiClient.get('/generators'),
+  getAll: async (): Promise<Generator[]> => {
+    if (useMockApi) {
+      const response = await MockApiService.getGenerators();
+      return response.data;
+    }
+    return apiClient.get('/generators');
+  },
   
   getById: (id: number): Promise<Generator> => 
     apiClient.get(`/generators/${id}`),

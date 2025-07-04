@@ -6,7 +6,6 @@ use App\Models\GasStore;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Exception;
-use Inertia\Inertia;
 
 class GasStoreController extends Controller
 {
@@ -200,35 +199,102 @@ class GasStoreController extends Controller
         }
     }
 
+
     /**
-     * Display the web interface for gas store.
+     * Get current inventory status
      */
-    public function webIndex(Request $request)
+    public function current(Request $request): JsonResponse
     {
-        return Inertia::render('GasStore/Index');
+        try {
+            $currentInventory = GasStore::where('IS_ACTIVE', 1)
+                ->orderBy('ENTRY_DATE', 'desc')
+                ->first();
+
+            return response()->json([
+                'success' => true,
+                'data' => $currentInventory,
+                'message' => 'Current inventory retrieved successfully'
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error retrieving current inventory: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
-     * Display the create gas store form.
+     * Get inventory history
      */
-    public function create()
+    public function history(Request $request): JsonResponse
     {
-        return Inertia::render('GasStore/Create');
+        try {
+            $query = GasStore::query();
+            
+            if ($request->has('date_from')) {
+                $query->where('ENTRY_DATE', '>=', $request->date_from);
+            }
+            
+            if ($request->has('date_to')) {
+                $query->where('ENTRY_DATE', '<=', $request->date_to);
+            }
+            
+            $history = $query->orderBy('ENTRY_DATE', 'desc')->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => $history,
+                'message' => 'Inventory history retrieved successfully'
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error retrieving inventory history: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
-     * Display the edit gas store form.
+     * Update inventory (create new entry)
      */
-    public function edit(string $id)
+    public function updateInventory(Request $request): JsonResponse
     {
-        return Inertia::render('GasStore/Edit', ['id' => $id]);
+        try {
+            $validated = $request->validate([
+                'GAS_QUANTITY' => 'required|numeric|min:0',
+                'SOLAR_QUANTITY' => 'nullable|numeric|min:0',
+                'NOTE' => 'nullable|string|max:1000',
+            ]);
+
+            $validated['ENTRY_DATE'] = now();
+            $validated['IS_ACTIVE'] = 1;
+
+            $gasStore = GasStore::create($validated);
+
+            return response()->json([
+                'success' => true,
+                'data' => $gasStore,
+                'message' => 'Inventory updated successfully'
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error updating inventory: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
-     * Display the gas store details.
+     * Generate inventory reports
      */
-    public function webShow(string $id)
+    public function report(Request $request): JsonResponse
     {
-        return Inertia::render('GasStore/Show', ['id' => $id]);
+        return response()->json([
+            'success' => false,
+            'message' => 'Inventory reporting functionality not implemented yet'
+        ], 501);
     }
 }

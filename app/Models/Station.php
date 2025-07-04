@@ -51,7 +51,9 @@ class Station extends Model
      */
     public function gasStores()
     {
-        return $this->hasMany(GasStore::class, 'station_id');
+        // Since GAS_STORE table doesn't have a station reference, 
+        // this relationship might need to be reconsidered
+        return $this->hasMany(GasStore::class, 'STATION_OID');
     }
 
     /**

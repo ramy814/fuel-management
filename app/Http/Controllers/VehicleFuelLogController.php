@@ -8,7 +8,6 @@ use App\Models\Station;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Exception;
-use Inertia\Inertia;
 
 class VehicleFuelLogController extends Controller
 {
@@ -183,35 +182,4 @@ class VehicleFuelLogController extends Controller
         }
     }
 
-    /**
-     * Display the web interface for fuel logs.
-     */
-    public function webIndex(Request $request)
-    {
-        return Inertia::render('FuelLogs/Index');
-    }
-
-    /**
-     * Display the create fuel log form.
-     */
-    public function create()
-    {
-        return Inertia::render('FuelLogs/Create');
-    }
-
-    /**
-     * Display the edit fuel log form.
-     */
-    public function edit(string $id)
-    {
-        return Inertia::render('FuelLogs/Edit', ['id' => $id]);
-    }
-
-    /**
-     * Display the fuel log details.
-     */
-    public function webShow(string $id)
-    {
-        return Inertia::render('FuelLogs/Show', ['id' => $id]);
-    }
 }

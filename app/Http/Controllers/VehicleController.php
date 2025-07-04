@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
+use App\Models\VehicleFuelLog;
 use App\Models\Station;
 use App\Helpers\ConstantsHelper;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Exception;
-use Inertia\Inertia;
 
 class VehicleController extends Controller
 {
@@ -237,35 +237,66 @@ class VehicleController extends Controller
         }
     }
 
+
     /**
-     * Display the web interface for vehicles.
+     * Get fuel logs for a specific vehicle
      */
-    public function webIndex(Request $request)
+    public function fuelLogs(string $id): JsonResponse
     {
-        return Inertia::render('Vehicles/Index');
+        try {
+            $vehicle = Vehicle::findOrFail($id);
+            
+            $fuelLogs = VehicleFuelLog::where('VEH_OID', $id)
+                ->orderBy('FILL_UP_DATE', 'desc')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'vehicle' => $vehicle,
+                    'fuel_logs' => $fuelLogs
+                ],
+                'message' => 'Vehicle fuel logs retrieved successfully'
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error retrieving fuel logs: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
-     * Display the create vehicle form.
+     * Export vehicles to Excel
      */
-    public function create()
+    public function exportExcel(Request $request): JsonResponse
     {
-        return Inertia::render('Vehicles/Create');
+        return response()->json([
+            'success' => false,
+            'message' => 'Excel export functionality not implemented yet'
+        ], 501);
     }
 
     /**
-     * Display the edit vehicle form.
+     * Export vehicles to PDF
      */
-    public function edit(string $id)
+    public function exportPdf(Request $request): JsonResponse
     {
-        return Inertia::render('Vehicles/Edit', ['id' => $id]);
+        return response()->json([
+            'success' => false,
+            'message' => 'PDF export functionality not implemented yet'
+        ], 501);
     }
 
     /**
-     * Display the vehicle details.
+     * Generate vehicle reports
      */
-    public function webShow(string $id)
+    public function report(Request $request): JsonResponse
     {
-        return Inertia::render('Vehicles/Show', ['id' => $id]);
+        return response()->json([
+            'success' => false,
+            'message' => 'Vehicle reporting functionality not implemented yet'
+        ], 501);
     }
 }

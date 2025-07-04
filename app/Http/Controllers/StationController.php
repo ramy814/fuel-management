@@ -7,7 +7,6 @@ use App\Helpers\ConstantsHelper;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Exception;
-use Inertia\Inertia;
 
 class StationController extends Controller
 {
@@ -151,8 +150,8 @@ class StationController extends Controller
                 ->get()
                 ->map(function ($station) {
                     return [
-                        'value' => $station->oid,
-                        'label' => $station->station_name
+                        'value' => $station->OID,
+                        'label' => $station->STATION_NAME
                     ];
                 });
 
@@ -192,35 +191,4 @@ class StationController extends Controller
         }
     }
 
-    /**
-     * Display the web interface for stations.
-     */
-    public function webIndex(Request $request)
-    {
-        return Inertia::render('Stations/Index');
-    }
-
-    /**
-     * Display the create station form.
-     */
-    public function create()
-    {
-        return Inertia::render('Stations/Create');
-    }
-
-    /**
-     * Display the edit station form.
-     */
-    public function edit(string $id)
-    {
-        return Inertia::render('Stations/Edit', ['id' => $id]);
-    }
-
-    /**
-     * Display the station details.
-     */
-    public function webShow(string $id)
-    {
-        return Inertia::render('Stations/Show', ['id' => $id]);
-    }
 }

@@ -19,7 +19,7 @@ class VehicleFuelLog extends Model
     /**
      * The primary key associated with the table.
      */
-    protected $primaryKey = 'oid';
+    protected $primaryKey = 'OID';
 
     /**
      * Indicates if the model should be timestamped.

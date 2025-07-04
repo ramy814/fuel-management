@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Exception;
-use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -236,35 +235,4 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Display the web interface for users.
-     */
-    public function webIndex(Request $request)
-    {
-        return Inertia::render('Users/Index');
-    }
-
-    /**
-     * Display the create user form.
-     */
-    public function create()
-    {
-        return Inertia::render('Users/Create');
-    }
-
-    /**
-     * Display the edit user form.
-     */
-    public function edit(string $id)
-    {
-        return Inertia::render('Users/Edit', ['id' => $id]);
-    }
-
-    /**
-     * Display the user details.
-     */
-    public function webShow(string $id)
-    {
-        return Inertia::render('Users/Show', ['id' => $id]);
-    }
 }

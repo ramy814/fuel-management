@@ -112,6 +112,25 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'oracle' => [
+            'driver' => 'oracle',
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '1521'),
+            'database' => env('DB_DATABASE', 'orcl'),
+            'service_name' => env('DB_SERVICE_NAME', 'orcl'),
+            'username' => env('DB_USERNAME', 'system'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => env('DB_CHARSET', 'AL32UTF8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'options' => [
+                PDO::ATTR_CASE => PDO::CASE_NATURAL,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_ORACLE_NULLS => PDO::NULL_NATURAL,
+                PDO::ATTR_STRINGIFY_FETCHES => false,
+            ],
+        ],
+
     ],
 
     /*

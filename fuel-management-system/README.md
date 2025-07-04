@@ -1,69 +1,143 @@
-# React + TypeScript + Vite
+# نظام إدارة المحروقات - بلدية غزة
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+نظام ويب شامل لإدارة المحروقات في بلدية غزة، مطور بتقنيات React و TypeScript الحديثة.
 
-Currently, two official plugins are available:
+## المميزات
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🚗 إدارة المركبات
+- تسجيل وتحديث بيانات المركبات
+- متابعة العدادات واستهلاك الوقود
+- إدارة الصيانة والتأمين
 
-## Expanding the ESLint configuration
+### ⚡ إدارة المولدات
+- تسجيل المولدات وقدراتها
+- متابعة ساعات التشغيل
+- إدارة استهلاك الوقود
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 📊 تتبع حركات الوقود
+- تسجيل حركات التعبئة
+- ربط المركبات والمولدات بالمحطات
+- تتبع الكميات والتواريخ
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🧾 إدارة الفواتير
+- إدارة فواتير شراء الوقود
+- حسابات التكاليف والأسعار
+- تقارير مالية شاملة
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 📈 لوحة التحكم
+- إحصائيات في الوقت الفعلي
+- رسوم بيانية تفاعلية
+- تنبيهات ومؤشرات الأداء
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 📋 نظام التقارير
+- تقارير استهلاك المركبات
+- تقارير أداء المولدات
+- تقارير مستويات المخزون
+- التقارير المالية والتكاليف
+
+### 🗄️ مراقبة المخزون
+- متابعة مستويات الوقود
+- تنبيهات المخزون المنخفض
+- تحليل اتجاهات الاستهلاك
+
+## التقنيات المستخدمة
+
+### Frontend
+- **React 19** - مكتبة واجهة المستخدم
+- **TypeScript** - تطوير آمن ومنظم
+- **Redux Toolkit** - إدارة الحالة
+- **Material-UI (MUI)** - مكونات واجهة المستخدم
+- **React Hook Form** - إدارة النماذج
+- **Chart.js** - الرسوم البيانية
+- **Axios** - طلبات HTTP
+- **React Router** - التوجيه
+- **Dayjs** - التعامل مع التواريخ
+
+### Styling & UI
+- **RTL Support** - دعم اتجاه النص العربي
+- **Responsive Design** - تصميم متجاوب
+- **Arabic Font Support** - دعم الخطوط العربية
+- **Dark/Light Theme** - دعم الأوضاع المظلمة والفاتحة
+
+### Development Tools
+- **Vite** - أداة البناء السريعة
+- **ESLint** - فحص جودة الكود
+- **TypeScript Compiler** - تحقق من الأنواع
+
+## هيكل المشروع
+
+```
+src/
+├── api/                    # طبقة API والاتصال بالخادم
+│   ├── client.ts          # عميل Axios الأساسي
+│   └── endpoints/         # نقاط النهاية لكل وحدة
+├── components/            # مكونات قابلة للإعادة الاستخدام
+│   ├── charts/           # مكونات الرسوم البيانية
+│   ├── common/           # مكونات مشتركة
+│   ├── forms/            # نماذج الإدخال
+│   └── tables/           # جداول البيانات
+├── features/             # ميزات التطبيق
+│   └── auth/            # نظام المصادقة
+├── layouts/              # تخطيطات الصفحات
+├── pages/                # صفحات التطبيق
+├── store/                # إدارة الحالة (Redux)
+│   └── slices/          # شرائح Redux
+├── types/                # تعريفات TypeScript
+└── utils/                # أدوات مساعدة
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## التثبيت والتشغيل
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### المتطلبات
+- Node.js 20+ 
+- npm أو yarn
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### خطوات التثبيت
+
+1. **تثبيت التبعيات**
+```bash
+npm install
 ```
+
+2. **إعداد متغيرات البيئة**
+```bash
+# إنشاء ملف .env.local
+VITE_API_URL=http://localhost:8000/api
+```
+
+3. **تشغيل الخادم المحلي**
+```bash
+npm run dev
+```
+
+4. **بناء المشروع للإنتاج**
+```bash
+npm run build
+```
+
+## الحالة الحالية
+
+### ✅ مكتمل
+- ✅ هيكل المشروع الأساسي
+- ✅ نظام المصادقة والتفويض
+- ✅ لوحة التحكم مع الإحصائيات
+- ✅ إدارة المركبات (CRUD كامل)
+- ✅ إدارة المولدات
+- ✅ تتبع حركات الوقود
+- ✅ إدارة الفواتير
+- ✅ مراقبة المخزون
+- ✅ نظام التقارير الشامل
+- ✅ دعم RTL والعربية
+- ✅ تصميم متجاوب
+- ✅ بناء المشروع بنجاح
+
+### 🔄 للتطوير المستقبلي
+- 🔄 ربط API الحقيقي
+- 🔄 اختبارات وحدة شاملة
+- 🔄 تصدير التقارير (PDF/Excel)
+- 🔄 نظام الإشعارات المباشرة
+- 🔄 التحديثات المباشرة (WebSocket)
+
+---
+
+© 2024 بلدية غزة - نظام إدارة المحروقات

@@ -1,15 +1,26 @@
 import { apiClient } from '../client';
 import { Vehicle, VehicleFilters, PaginatedResponse, CreateVehicleDTO, UpdateVehicleDTO, FuelLog } from '../../types';
+import { MockApiService } from '../../utils/mockApi';
+
+const useMockApi = import.meta.env.VITE_MOCK_API === 'true' || import.meta.env.DEV;
 
 export const vehiclesAPI = {
-  getAll: (params?: VehicleFilters): Promise<PaginatedResponse<Vehicle>> => 
-    apiClient.get('/vehicles', { params }),
+  getAll: async (params?: VehicleFilters): Promise<PaginatedResponse<Vehicle>> => {
+    if (useMockApi) {
+      return await MockApiService.getVehicles(params);
+    }
+    return apiClient.get('/vehicles', { params });
+  },
   
   getById: (id: number): Promise<Vehicle> => 
     apiClient.get(`/vehicles/${id}`),
   
-  create: (data: CreateVehicleDTO): Promise<Vehicle> => 
-    apiClient.post('/vehicles', data),
+  create: async (data: CreateVehicleDTO): Promise<Vehicle> => {
+    if (useMockApi) {
+      return await MockApiService.createVehicle(data);
+    }
+    return apiClient.post('/vehicles', data);
+  },
   
   update: (id: number, data: UpdateVehicleDTO): Promise<Vehicle> => 
     apiClient.put(`/vehicles/${id}`, data),
