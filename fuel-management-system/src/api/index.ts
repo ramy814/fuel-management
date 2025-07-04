@@ -1,0 +1,11 @@
+export { authAPI } from './endpoints/auth';
+export { vehiclesAPI } from './endpoints/vehicles';
+export { generatorsAPI } from './endpoints/generators';
+export { fuelLogsAPI } from './endpoints/fuelLogs';
+export { invoicesAPI } from './endpoints/invoices';
+export { inventoryAPI } from './endpoints/inventory';
+export { constantsAPI } from './endpoints/constants';
+export { stationsAPI } from './endpoints/stations';
+export { dashboardAPI } from './endpoints/dashboard';
+export { reportsAPI } from './endpoints/reports';
+export { apiClient } from './client';
